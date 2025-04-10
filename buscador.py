@@ -134,9 +134,6 @@ if uploaded_file:
         if st.button("Generar archivo Excel final"):
             df['URL Imagen'] = df.index.map(lambda idx: st.session_state['resultados_urls'].get(idx, ""))
 
-            st.write("Vista previa del archivo:")
-            st.dataframe(df.head())
-
             output = BytesIO()
             df.to_excel(output, index=False)
             output.seek(0)
@@ -150,3 +147,4 @@ st.markdown("""
 ---
 <p style='text-align: center; color: gray;'>© 2025 Agrodolores. Todos los derechos reservados.</p>
 """, unsafe_allow_html=True)
+
