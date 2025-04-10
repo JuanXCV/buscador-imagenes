@@ -62,13 +62,22 @@ st.subheader("Paso 1: Cargar archivo Excel")
 
 uploaded_file = st.file_uploader("Arrastra o selecciona tu archivo Excel de productos", type=["xlsx"])
 
+def detectar_columna(opciones, posibles_nombres):
+    for nombre in posibles_nombres:
+        for col in opciones:
+            if nombre.lower() in col.lower():
+                return col
+    return opciones[0] if opciones else ""
+
 if uploaded_file:
     df = pd.read_excel(uploaded_file)
     st.subheader("Paso 2: Identificar columnas")
-    col_nombre = st.selectbox("Columna: Nombre del producto", df.columns)
-    col_composicion = st.selectbox("Columna: Composición", df.columns)
-    col_cantidad = st.selectbox("Columna: Cantidad", df.columns)
-    col_udm = st.selectbox("Columna: Unidad de medida", df.columns)
+
+    col_nombre = st.selectbox("Columna: Nombre del producto", df.columns, index=df.columns.get_loc(detectar_columna(df.columns, ['nombre'])))
+    col_composicion = st.selectbox("Columna: Composición", df.columns, index=df.columns.get_loc(detectar_columna(df.columns, ['composición', 'composicion'])))
+    col_cantidad = st.selectbox("Columna: Cantidad", df.columns, index=df.columns.get_loc(detectar_columna(df.columns, ['cantidad'])))
+    col_udm = st.selectbox("Columna: Unidad física", df.columns, index=df.columns.get_loc(detectar_columna(df.columns, ['unidad física', 'unidad'])))
+    col_url = st.selectbox("Columna: URL Imagen (si existe)", ["Ninguna"] + list(df.columns), index=(["Ninguna"] + list(df.columns)).index(detectar_columna(["Ninguna"] + list(df.columns), ['url imagen'])))
 
     if st.button("Iniciar búsqueda de imágenes") or 'resultados_urls' in st.session_state:
         if 'resultados_urls' not in st.session_state:
@@ -78,6 +87,13 @@ if uploaded_file:
             st.session_state['imagenes'] = {}
 
         for idx, producto in enumerate(st.session_state['productos']):
+            url_existente = producto.get(col_url, '') if col_url != "Ninguna" else ''
+
+            # Si ya tiene una URL válida, la dejamos tal cual y no mostramos nada
+            if isinstance(url_existente, str) and url_existente.strip() != "":
+                st.session_state['resultados_urls'][idx] = url_existente
+                continue
+
             st.markdown(f"""
                 <div style='background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); margin-bottom: 20px;'>
                     <h4 style='color:#1A4D3D;'>{producto[col_nombre]}</h4>
@@ -132,5 +148,5 @@ if uploaded_file:
 # Pie de página corporativo
 st.markdown("""
 ---
-<p style='text-align: center; color: gray;'>© 2024 Agrodolores. Todos los derechos reservados.</p>
+<p style='text-align: center; color: gray;'>© 2025 Agrodolores. Todos los derechos reservados.</p>
 """, unsafe_allow_html=True)
