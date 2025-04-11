@@ -28,6 +28,7 @@ st.markdown("""
         background-color: #F28C28;
         color: white;
     }
+    /*
     .fixed-header {
         position: fixed;
         top: 3rem;
@@ -41,22 +42,23 @@ st.markdown("""
     .header-spacer {
         height: 110px;
     }
+    */
 </style>
 """, unsafe_allow_html=True)
 
-# Encabezado fijo con espacio superior para evitar solapamiento con la barra de Streamlit
-st.markdown("""
-<div class='fixed-header'>
-    <div style='display: flex; align-items: center;'>
-        <img src='https://agrodolores.zenn.es/web/image/website/1/logo/Mi%20Agrodolores?unique=a108e66' style='height: 60px; margin-right: 20px;'>
-        <div>
-            <h2 style='margin: 0; color: #1A4D3D;'>Agrodolores</h2>
-            <p style='margin: 0; font-size: 16px; color: #555;'>Súmate a la innovación agrícola</p>
-        </div>
-    </div>
-</div>
-<div class='header-spacer'></div>
-""", unsafe_allow_html=True)
+# Encabezado fijo (comentado temporalmente)
+# st.markdown("""
+# <div class='fixed-header'>
+#     <div style='display: flex; align-items: center;'>
+#         <img src='https://agrodolores.zenn.es/web/image/website/1/logo/Mi%20Agrodolores?unique=a108e66' style='height: 60px; margin-right: 20px;'>
+#         <div>
+#             <h2 style='margin: 0; color: #1A4D3D;'>Agrodolores</h2>
+#             <p style='margin: 0; font-size: 16px; color: #555;'>Súmate a la innovación agrícola</p>
+#         </div>
+#     </div>
+# </div>
+# <div class='header-spacer'></div>
+# """, unsafe_allow_html=True)
 
 st.subheader("Paso 1: Cargar archivo Excel")
 
@@ -147,4 +149,3 @@ st.markdown("""
 ---
 <p style='text-align: center; color: gray;'>© 2025 Agrodolores. Todos los derechos reservados.</p>
 """, unsafe_allow_html=True)
-
