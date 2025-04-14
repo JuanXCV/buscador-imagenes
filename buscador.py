@@ -131,6 +131,7 @@ if uploaded_file:
                 st.session_state['resultados_urls'][idx] = ""
 
             st.markdown("</div>", unsafe_allow_html=True)
+            st.markdown("<hr style='border: none; height: 5px; background-color: #F28C28; border-radius: 3px;'>", unsafe_allow_html=True)
 
         st.subheader("Paso 3: Generar Excel con imágenes seleccionadas")
         if st.button("Generar archivo Excel final"):
