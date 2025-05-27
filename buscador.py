@@ -88,7 +88,7 @@ if uploaded_file:
                             break
                     except exceptions.RatelimitException:
                         intentos += 1
-                        st.warning(f"Ratelimit alcanzado. Reintentando ({intentos}/{max_reintentos})...")
+                        st.warning(f"Pincha en buscar nuevas imágenes. Reintentando ({intentos}/{max_reintentos})...")
                         time.sleep(10)
 
             opciones_urls = st.session_state['imagenes'].get(f"imagenes_{idx}", [])
